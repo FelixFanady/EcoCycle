@@ -17,6 +17,9 @@
 
     // Word Swap Animation
     initWordSwap();
+
+    // Hero Carousel Auto-Scroll
+    initCarousel();
   });
 
   function initWordSwap() {
@@ -76,5 +79,44 @@
 
     // Start the typing animation
     cycle();
+  }
+
+  function initCarousel() {
+    const carousel = document.querySelector(".hero-carousel");
+    if (!carousel) return;
+
+    const items = document.querySelectorAll(".carousel-item");
+    const dots = document.querySelectorAll(".dot");
+    let currentIndex = 0;
+    const autoScrollInterval = 5000; // 5 seconds
+
+    function showSlide(index) {
+      // Remove active class from all items and dots
+      items.forEach((item) => item.classList.remove("active"));
+      dots.forEach((dot) => dot.classList.remove("active"));
+
+      // Add active class to current item and dot
+      items[index].classList.add("active");
+      dots[index].classList.add("active");
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % items.length;
+      showSlide(currentIndex);
+    }
+
+    // Show first slide
+    showSlide(0);
+
+    // Auto-scroll carousel
+    setInterval(nextSlide, autoScrollInterval);
+
+    // Allow dot clicking to navigate
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        currentIndex = index;
+        showSlide(currentIndex);
+      });
+    });
   }
 })();

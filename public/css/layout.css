@@ -146,7 +146,7 @@
 
 .product-image {
   width: 100%;
-  height: 450px;
+  height: clamp(300px, 60vh, 600px);
   border-radius: var(--radius-lg);
   background: linear-gradient(135deg, #e8f5ed 0%, var(--surface-light) 100%);
   border: 2px solid var(--border);
@@ -155,6 +155,8 @@
   justify-content: center;
   font-size: 6rem;
   box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
 }
 
 .product-image img {
@@ -162,6 +164,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: var(--radius-lg);
+  display: block;
 }
 
 .product-info h1 {
