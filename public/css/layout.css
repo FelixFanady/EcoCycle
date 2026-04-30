@@ -287,7 +287,7 @@
   .form-group.inline {
     grid-template-columns: 1fr;
   }
-  object-fit: contain;
+
   .testimonial-grid {
     grid-template-columns: 1fr;
   }
