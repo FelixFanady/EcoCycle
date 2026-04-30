@@ -125,12 +125,13 @@
   place-items: center;
   font-size: 5rem;
   box-shadow: var(--shadow-lg);
+  overflow: hidden;
 }
 
 .hero-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: var(--radius-lg);
 }
 
@@ -280,12 +281,13 @@
 
   .hero-actions .btn {
     width: 100%;
+    overflow: hidden;
   }
 
   .form-group.inline {
     grid-template-columns: 1fr;
   }
-
+  object-fit: contain;
   .testimonial-grid {
     grid-template-columns: 1fr;
   }
