@@ -5,26 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EcoCycle | Product Detail</title>
 
-    <!-- CSS - Modular Approach -->
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/components.css" />
     <link rel="stylesheet" href="/css/utilities.css" />
     <link rel="stylesheet" href="/css/layout.css" />
     <link rel="stylesheet" href="/css/styles.css" />
+
+    <style>
+      .product-image {
+        /* Mengubah dari grid ke flex karena lebih stabil untuk gambar */
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem !important; /* Memperbesar ruang kosong di sekitar tas */
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      .product-image img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important; /* Kunci: memaksa gambar fit ke dalam kotak */
+        mix-blend-mode: multiply;
+      }
+    </style>
   </head>
   <body>
-    <!-- Navbar Component -->
     <div id="navbar-root"></div>
 
     <main class="container section">
-      <!-- Back Navigation Button -->
       <a href="/products" class="back-button">
         <span>←</span> Back to Products
       </a>
 
-      <!-- ========== PRODUCT DETAIL SECTION ========== -->
       <section class="product-detail">
-        <!-- Product Image -->
         <div class="product-image">
           <img
             src="/picture/product_detail/prod_detail_1.jpg"
@@ -33,7 +47,6 @@
           />
         </div>
 
-        <!-- Product Information -->
         <div class="product-info">
           <h1>Recycled Tote Bag</h1>
           <p>
@@ -42,13 +55,11 @@
             reducing landfill burden.
           </p>
 
-          <!-- Price Section -->
           <div class="price-section">
             <div class="price">$24.99</div>
             <p>In Stock · Free Shipping Over $50</p>
           </div>
 
-          <!-- Environmental Impact Box -->
           <div class="card bg-green-light rounded-lg p-3">
             <h3 class="text-green mb-2">Environmental Impact</h3>
             <ul class="flex flex-col gap-1">
@@ -59,7 +70,6 @@
             </ul>
           </div>
 
-          <!-- Product Actions -->
           <div class="product-actions">
             <button class="btn btn-primary" id="addToCartBtn">
               Add to Cart
@@ -69,7 +79,6 @@
             </button>
           </div>
 
-          <!-- Feedback Message (Initially Hidden) -->
           <div
             class="alert alert-success hidden"
             id="cartFeedback"
@@ -78,7 +87,6 @@
             ✓ Added to cart! Proceed to checkout when ready.
           </div>
 
-          <!-- Product Details Section -->
           <div class="border-t mt-4 pt-4">
             <h3 class="mb-3">Product Details</h3>
             <dl class="grid cols-2 gap-2 text-sm">
@@ -103,7 +111,6 @@
         </div>
       </section>
 
-      <!-- ========== REVIEWS SECTION ========== -->
       <section class="mt-8">
         <h2 class="section-title mb-4">Customer Reviews</h2>
         <div class="grid cols-2">
@@ -139,12 +146,10 @@
         </div>
       </section>
 
-      <!-- ========== RELATED PRODUCTS SECTION ========== -->
       <section class="mt-8">
         <h2 class="section-title">Related Products</h2>
         <p class="section-subtitle">You might also like</p>
         <div class="products-grid">
-          <!-- Related Product 1 -->
           <div class="product-card">
             <div class="product-card-image">
               <img
@@ -168,7 +173,6 @@
             </div>
           </div>
 
-          <!-- Related Product 2 -->
           <div class="product-card">
             <div class="product-card-image">
               <img
@@ -192,7 +196,6 @@
             </div>
           </div>
 
-          <!-- Related Product 3 -->
           <div class="product-card">
             <div class="product-card-image">
               <img
@@ -219,18 +222,13 @@
       </section>
     </main>
 
-    <!-- Footer Component -->
     <div id="footer-root"></div>
 
-    <!-- ========== SCRIPTS - Modular Approach ========== -->
-    <!-- Auth Manager must load first -->
     <script src="/js/auth.js"></script>
 
-    <!-- Component scripts -->
     <script src="/js/components/navbar.js"></script>
     <script src="/js/components/footer.js"></script>
 
-    <!-- Product Detail Page Logic -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const addToCartBtn = document.getElementById("addToCartBtn");
@@ -257,7 +255,6 @@
       });
     </script>
 
-    <!-- Main app entry point -->
     <script src="/js/main.js"></script>
   </body>
 </html>
