@@ -61,28 +61,54 @@ class FooterComponent {
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address.");
+      this.showToast(
+        "Invalid email",
+        "error",
+        "Please enter a valid email address.",
+      );
       return;
     }
 
-    // Show success message
-    const successMsg = document.createElement("p");
-    successMsg.className = "text-green font-semibold mt-2";
-    successMsg.textContent = "✓ Thank you for subscribing!";
-    form.appendChild(successMsg);
-
-    // Reset form and remove message after 3 seconds
+    this.showToast(
+      "Subscribed successfully!",
+      "success",
+      "Thank you for joining our newsletter.",
+    );
     form.reset();
-    setTimeout(() => {
-      successMsg.remove();
-    }, 3000);
+  }
 
-    // Here you would send to backend:
-    // await fetch('/api/newsletter', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ email })
-    // });
+  showToast(title, type = "success", desc = "") {
+    let toast = document.getElementById("newsletter-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "newsletter-toast";
+      toast.className = "toast-notification";
+      toast.innerHTML = `
+        <div class="toast-icon"></div>
+        <div>
+          <h4 class="toast-title" style="margin: 0; color: var(--text-primary); font-size: 1rem;"></h4>
+          <p class="toast-desc" style="margin: 0; font-size: 0.9rem; color: var(--text-muted);"></p>
+        </div>
+      `;
+      document.body.appendChild(toast);
+    }
+
+    const icon = toast.querySelector(".toast-icon");
+    const titleEl = toast.querySelector(".toast-title");
+    const descEl = toast.querySelector(".toast-desc");
+
+    toast.className = `toast-notification ${type}`;
+    titleEl.textContent = title;
+    descEl.textContent = desc;
+    descEl.style.display = desc ? "block" : "none";
+    icon.textContent = type === "success" ? "✓" : "!";
+
+    toast.classList.add("show");
+
+    clearTimeout(this.toastTimeout);
+    this.toastTimeout = setTimeout(() => {
+      toast.classList.remove("show");
+    }, 3000);
   }
 }
 

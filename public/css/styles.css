@@ -1245,3 +1245,63 @@ select:focus {
   width: 30px;
   border-radius: 5px;
 }
+
+/* Toast Notification */
+.toast-notification {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--surface);
+  border-left: 4px solid var(--forest-green);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1000;
+  transform: translateX(120%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.toast-notification.show {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.toast-notification.error {
+  border-left-color: #e53e3e;
+}
+
+.toast-icon {
+  width: 32px;
+  height: 32px;
+  background: #e8f5ed;
+  color: var(--forest-green);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.toast-notification.error .toast-icon {
+  background: #fff5f5;
+  color: #e53e3e;
+}
+
+@media (max-width: 768px) {
+  .toast-notification {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    transform: translateY(120%);
+  }
+  .toast-notification.show {
+    transform: translateY(0);
+  }
+}

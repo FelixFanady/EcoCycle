@@ -28,6 +28,57 @@
         object-fit: contain !important; /* Kunci: memaksa gambar fit ke dalam kotak */
         mix-blend-mode: multiply;
       }
+
+      /* Cart Toast Notification */
+      .cart-toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--surface);
+        border-left: 4px solid var(--forest-green);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-lg);
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 1000;
+        transform: translateX(120%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+
+      .cart-toast.show {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .cart-toast-icon {
+        width: 32px;
+        height: 32px;
+        background: #e8f5ed;
+        color: var(--forest-green);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      @media (max-width: 768px) {
+        .cart-toast {
+          bottom: 1rem;
+          right: 1rem;
+          left: 1rem;
+          transform: translateY(120%);
+        }
+        .cart-toast.show {
+          transform: translateY(0);
+        }
+      }
     </style>
   </head>
   <body>
@@ -79,12 +130,18 @@
             </button>
           </div>
 
-          <div
-            class="alert alert-success hidden"
-            id="cartFeedback"
-            role="status"
-          >
-            ✓ Added to cart! Proceed to checkout when ready.
+          <div class="cart-toast" id="cartFeedback" role="status">
+            <div class="cart-toast-icon">✓</div>
+            <div>
+              <h4
+                style="margin: 0; color: var(--text-primary); font-size: 1rem"
+              >
+                Added to cart!
+              </h4>
+              <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted)">
+                Your item is ready for checkout.
+              </p>
+            </div>
           </div>
 
           <div class="border-t mt-4 pt-4">
@@ -233,23 +290,47 @@
       document.addEventListener("DOMContentLoaded", function () {
         const addToCartBtn = document.getElementById("addToCartBtn");
         const saveForLaterBtn = document.getElementById("saveForLaterBtn");
-        const cartFeedback = document.getElementById("cartFeedback");
+        const toastFeedback = document.getElementById("cartFeedback");
+        const toastIcon = toastFeedback.querySelector(".cart-toast-icon");
+        const toastTitle = toastFeedback.querySelector("h4");
+        const toastDesc = toastFeedback.querySelector("p");
+
+        let toastTimeout;
+
+        function showToast(type) {
+          if (type === "cart") {
+            toastIcon.textContent = "✓";
+            toastIcon.style.color = "var(--forest-green)";
+            toastIcon.style.background = "#e8f5ed";
+            toastTitle.textContent = "Added to cart!";
+            toastDesc.textContent = "Your item is ready for checkout.";
+          } else if (type === "wishlist") {
+            toastIcon.textContent = "❤️";
+            toastIcon.style.color = "#e53e3e";
+            toastIcon.style.background = "#fff5f5";
+            toastTitle.textContent = "Saved for later!";
+            toastDesc.textContent = "Product added to your wishlist.";
+          }
+
+          toastFeedback.classList.add("show");
+
+          clearTimeout(toastTimeout);
+          toastTimeout = setTimeout(() => {
+            toastFeedback.classList.remove("show");
+          }, 3000);
+        }
 
         // Add to Cart button handler
         if (addToCartBtn) {
           addToCartBtn.addEventListener("click", function () {
-            cartFeedback.classList.remove("hidden");
-            // Reset after 3 seconds
-            setTimeout(() => {
-              cartFeedback.classList.add("hidden");
-            }, 3000);
+            showToast("cart");
           });
         }
 
         // Save for Later button handler
         if (saveForLaterBtn) {
           saveForLaterBtn.addEventListener("click", function () {
-            alert("Product saved to your wishlist!");
+            showToast("wishlist");
           });
         }
       });
