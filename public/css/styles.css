@@ -10,12 +10,12 @@
   --text-muted: #7a7a7a;
   --surface: #ffffff;
   --surface-light: #f5f5f0;
-  --border: #e8e8e0;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.15);
-  --radius: 12px;
-  --radius-lg: 16px;
+  --border: #eaebef;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --radius: 14px;
+  --radius-lg: 24px;
   --transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -36,8 +36,8 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  font-size: 18px;
-  background: linear-gradient(135deg, #f9f8f5 0%, #f2f7f4 100%);
+  font-size: 16px;
+  background: #fbfbfb;
   color: var(--text-primary);
   line-height: 1.6;
 }
@@ -50,6 +50,7 @@ h5,
 h6 {
   font-family: "Poppins", sans-serif;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 a {
@@ -113,22 +114,25 @@ main {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--forest-green), #2f8a56);
+  background: var(--forest-green);
   color: #ffffff;
+  box-shadow: 0 4px 14px rgba(31, 95, 58, 0.2);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #1a4d2e, #267949);
+  background: #1a4d2e;
+  box-shadow: 0 6px 20px rgba(31, 95, 58, 0.3);
 }
 
 .btn-secondary {
   background: var(--mint-green);
   color: var(--text-primary);
-  border: 1px solid #8dd9a3;
+  border: none;
 }
 
 .btn-secondary:hover {
   background: #94d9a4;
+  box-shadow: 0 4px 12px rgba(168, 230, 184, 0.4);
 }
 
 .btn-outline {
@@ -138,7 +142,8 @@ main {
 }
 
 .btn-outline:hover {
-  background: rgba(31, 95, 58, 0.08);
+  background: var(--forest-green);
+  color: #ffffff;
 }
 
 .btn-sm {
@@ -151,9 +156,9 @@ main {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  backdrop-filter: blur(16px);
   box-shadow: var(--shadow-sm);
 }
 
@@ -177,10 +182,10 @@ main {
 .brand-logo {
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 12px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, var(--forest-green), #2f8a56);
+  background: var(--forest-green);
   color: white;
   font-size: 0.85rem;
   font-weight: 700;
@@ -230,11 +235,35 @@ main {
   color: var(--text-primary);
 }
 
-.nav-links a:hover,
-.nav-links a:focus-visible,
-.nav-links a.active {
-  background: var(--surface-light);
+.nav-links a:not(.btn) {
+  position: relative;
+}
+
+.nav-links a:not(.btn)::after {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: 1.2rem;
+  right: 1.2rem;
+  height: 2.5px;
+  background-color: var(--forest-green);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-links a:not(.btn):hover,
+.nav-links a:not(.btn):focus-visible,
+.nav-links a:not(.btn).active {
   color: var(--forest-green);
+  background: transparent;
+}
+
+.nav-links a:not(.btn):hover::after,
+.nav-links a:not(.btn).active::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 @media (max-width: 768px) {
@@ -398,17 +427,16 @@ main {
 
 .card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius-lg);
   padding: 2rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   transition: all var(--transition);
 }
 
 .card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--mint-green);
 }
 
 .card h3,
@@ -427,10 +455,10 @@ main {
   width: min(520px, 100%);
   margin: 2rem auto;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius-lg);
   padding: 2.5rem;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
 }
 
 .form-wrapper h2 {
@@ -461,11 +489,11 @@ textarea,
 select {
   width: 100%;
   min-height: 48px;
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
+  border: 2px solid transparent;
+  border-radius: 12px;
   padding: 0.8rem 1rem;
   font: inherit;
-  background: var(--surface);
+  background: #f4f5f7;
   color: var(--text-primary);
   transition: all var(--transition);
 }
@@ -474,8 +502,9 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
+  background: var(--surface);
   border-color: var(--forest-green);
-  box-shadow: 0 0 0 3px rgba(31, 95, 58, 0.1);
+  box-shadow: 0 0 0 4px rgba(31, 95, 58, 0.1);
 }
 
 .alert {
@@ -566,10 +595,10 @@ select:focus {
 
 .testimonial-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius-lg);
   padding: 2rem;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   transition: all var(--transition);
 }
 
@@ -626,7 +655,7 @@ select:focus {
 
 /* Footer */
 .site-footer {
-  background: linear-gradient(135deg, #1f5f3a 0%, #2f8a56 100%);
+  background: #113620;
   color: white;
   padding: 4rem 0 2rem;
   margin-top: 5rem;
@@ -775,12 +804,15 @@ select:focus {
 
 /* Sign Out Button Styling */
 .btn-signout {
-  background: #e53e3e;
-  color: #ffffff;
+  background: transparent;
+  color: #e53e3e;
+  border: 1.5px solid #e53e3e;
 }
 
 .btn-signout:hover {
-  background: #c53030;
+  background: #e53e3e;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.25);
 }
 
 /* Product Grid - 4 columns */
@@ -796,8 +828,8 @@ select:focus {
   padding: 0.7rem 1.2rem;
   margin-bottom: 2rem;
   background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1px solid #eaebef;
+  border-radius: 10px;
   color: var(--text-primary);
   font-weight: 500;
   cursor: pointer;
@@ -916,9 +948,10 @@ select:focus {
 
 .order-header {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius-lg);
   padding: 2rem;
+  box-shadow: var(--shadow-md);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
@@ -1026,18 +1059,18 @@ select:focus {
 
 .product-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: none;
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all var(--transition);
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-md);
 }
 
 .product-card:hover {
   transform: translateY(-8px);
   box-shadow: var(--shadow-lg);
-  border-color: var(--mint-green);
 }
 
 .product-card-image {
