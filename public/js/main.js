@@ -58,7 +58,6 @@ function handleNewsletterSubmit(event) {
 
   // Simple validation
   if (!email) {
-    alert("Please enter your email");
     return;
   }
 
